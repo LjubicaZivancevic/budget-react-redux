@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Form, Segment, Checkbox } from "semantic-ui-react";
+import React from "react";
+import { Form} from "semantic-ui-react";
 import ButtonSaveOrCancel from "./ButtonSaveOrCancel";
 import EntryForm from "./EntryForm";
 
-function NewEntryForm({ addEntry }) {
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
-  const [isExpense, setisExpense] = useState(true);
+function NewEntryForm({ addEntry, description, value, isExpense, setDescription, setValue, setisExpense }) {
+ 
   return (
     <Form unstackable>
       <EntryForm
@@ -19,9 +17,7 @@ function NewEntryForm({ addEntry }) {
       ></EntryForm>
       <ButtonSaveOrCancel
         addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
+     
       ></ButtonSaveOrCancel>
     </Form>
   );

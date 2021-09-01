@@ -1,7 +1,9 @@
 import React from 'react'
 import {Header, Segment, Statistic} from 'semantic-ui-react'
 
-function MainHeader(){
+
+
+function MainHeader({total}){
     return (
         
         <Segment textAlign="center">
@@ -10,8 +12,9 @@ function MainHeader(){
         <Statistic.Label style={{textAlign:"center"}}>
           Your Balance:
         </Statistic.Label>
-        <Statistic.Value style={{textAlign:"center"}}>2,550.53</Statistic.Value>
+        <Statistic.Value style={{textAlign:"center"}}>{total}</Statistic.Value>
       </Statistic>
+
         </Segment>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Statistic} from 'semantic-ui-react'
+import { Statistic} from 'semantic-ui-react'
 
 function DisplayBalance({title, value, color}){
     return (
@@ -7,7 +7,7 @@ function DisplayBalance({title, value, color}){
         <Statistic.Label style={{textAlign:"center"}}>
             {title}
         </Statistic.Label>
-        <Statistic.Value>
+        <Statistic.Value style={{textAlign:"center", margin: "auto"}}>
             {value}
         </Statistic.Value>
       </Statistic>
