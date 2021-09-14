@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Header, Modal } from "semantic-ui-react";
+import { Container, Header } from "semantic-ui-react";
 
 import "semantic-ui-css/semantic.min.css";
 import MainHeader from "./components/MainHeader";
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (!isOpen && entryId) {
-      const index = entries.findIndex((entry) => entry.id == entryId);
+      const index = entries.findIndex((entry) => entry.id === entryId);
       const newEntries = [...entries];
       newEntries[index].description = description;
       newEntries[index].value = value;
@@ -42,15 +42,15 @@ function App() {
 
     entries.map((entry) => {
       if (entry.isExpense) {
-        totalExpenses += parseInt(entry.value);
+       return totalExpenses += parseInt(entry.value);
       } else {
-        totalIncome += parseInt(entry.value);
+       return totalIncome += parseInt(entry.value);
       }
     });
     setTotal(totalIncome - totalExpenses);
     setExpenseTotal(totalExpenses);
     setIncomeTotal(totalIncome);
-
+       // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, entries);
 
   function deleteEntry(id) {
