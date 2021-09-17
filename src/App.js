@@ -7,6 +7,7 @@ import NewEntryForm from "./components/NewEntryForm";
 import DisplayBalances from "./components/DisplayBalances";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
+import {useSelector} from "react-redux"
 
 
 import "./App.css";
@@ -15,14 +16,14 @@ function App() {
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
   const [isExpense, setisExpense] = useState(true);
-  const [entries, setEntries] = useState(initialEntries);
+
   const [entryId, setEntryId] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [total, setTotal] = useState(0);
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
-  
 
+  const entries = useSelector((state) => state.entries)
   useEffect(() => {
     if (!isOpen && entryId) {
       const index = entries.findIndex((entry) => entry.id === entryId);
@@ -30,7 +31,7 @@ function App() {
       newEntries[index].description = description;
       newEntries[index].value = value;
       newEntries[index].isExpense = isExpense;
-      setEntries(newEntries);
+      // setEntries(newEntries);
       resetEntry();
     }
     // eslint-disable-next-line  react-hooks/exhaustive-deps
@@ -42,20 +43,20 @@ function App() {
 
     entries.map((entry) => {
       if (entry.isExpense) {
-       return totalExpenses += parseInt(entry.value);
+        return (totalExpenses += parseInt(entry.value));
       } else {
-       return totalIncome += parseInt(entry.value);
+        return (totalIncome += parseInt(entry.value));
       }
     });
     setTotal(totalIncome - totalExpenses);
     setExpenseTotal(totalExpenses);
     setIncomeTotal(totalIncome);
-       // eslint-disable-next-line  react-hooks/exhaustive-deps
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, entries);
 
   function deleteEntry(id) {
     const result = entries.filter((item) => item.id !== id);
-    setEntries(result);
+    // setEntries(result);
   }
 
   function editEntry(id) {
@@ -84,14 +85,14 @@ function App() {
     });
     console.log("res", result);
     console.log("entries", entries);
-    setEntries(result);
+    // setEntries(result);
     resetEntry();
   }
 
   return (
     <Container>
       <MainHeader total={total}></MainHeader>
- 
+
       <DisplayBalances exp={expenseTotal} inc={incomeTotal}></DisplayBalances>
 
       <Header as="h3">Add new transaction</Header>
@@ -106,7 +107,7 @@ function App() {
       ></NewEntryForm>
       <EntryLines
         entries={entries}
-        deleteEntry={deleteEntry}
+     
         editEntry={editEntry}
       ></EntryLines>
       <ModalEdit
@@ -126,35 +127,3 @@ function App() {
 
 export default App;
 
-var initialEntries = [
-  {
-    id: 1,
-    description: "Work income",
-    value: "1000,00",
-    isExpense: false,
-  },
-  {
-    id: 2,
-    description: "Water bill",
-    value: "10,00",
-    isExpense: true,
-  },
-  {
-    id: 3,
-    description: "Power bill",
-    value: "20,00",
-    isExpense: true,
-  },
-  {
-    id: 4,
-    description: "upWork job",
-    value: "100,00",
-    isExpense: false,
-  },
-  {
-    id: 5,
-    description: "upWork job 2",
-    value: "120,00",
-    isExpense: false,
-  },
-];
