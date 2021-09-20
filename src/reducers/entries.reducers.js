@@ -9,6 +9,12 @@ const reducer = (state = initialEntries, action) => {
       newEntries = state.filter((entry) => entry.id !== action.payload.id);
       return newEntries;
       break;
+      case "UPDATE_ENTRY":
+        newEntries = [...state];
+        const index = newEntries.findIndex((entry)=>entry.id == action.payload.id);
+        newEntries[index]= {...action.payload.entry};
+        return newEntries;
+      break;
     default:
       return state;
   }
@@ -35,16 +41,17 @@ var initialEntries = [
       isExpense: true,
     },
     {
-      id: 4,
-      description: "upWork job",
-      value: "100,00",
-      isExpense: false,
-    },
-    {
       id: 5,
       description: "upWork job 2",
       value: "120,00",
       isExpense: false,
     },
+    {
+      id: 4,
+      description: "upWork job",
+      value: "100,00",
+      isExpense: false,
+    },
+  
   ];
   

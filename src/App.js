@@ -7,35 +7,24 @@ import NewEntryForm from "./components/NewEntryForm";
 import DisplayBalances from "./components/DisplayBalances";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
-import {useSelector} from "react-redux"
-
+import { useSelector } from "react-redux";
 
 import "./App.css";
+import useEntryDatails from "./hooks/useEntryDetails";
 
 function App() {
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
-  const [isExpense, setisExpense] = useState(true);
-
-  const [entryId, setEntryId] = useState();
-  const [isOpen, setIsOpen] = useState(false);
   const [total, setTotal] = useState(0);
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
+  const [entry, setEntry] = useState(); 
+  const entries = useSelector((state) => state.entries);
+  const {isOpen, id} = useSelector((state) => state.modals);
 
-  const entries = useSelector((state) => state.entries)
   useEffect(() => {
-    if (!isOpen && entryId) {
-      const index = entries.findIndex((entry) => entry.id === entryId);
-      const newEntries = [...entries];
-      newEntries[index].description = description;
-      newEntries[index].value = value;
-      newEntries[index].isExpense = isExpense;
-      // setEntries(newEntries);
-      resetEntry();
-    }
+    const index = entries.findIndex(entry => entry.id === id);
+    setEntry(entries[index]);
     // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, id]);
 
   useEffect(() => {
     let totalIncome = 0;
@@ -54,40 +43,7 @@ function App() {
     // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, entries);
 
-  function deleteEntry(id) {
-    const result = entries.filter((item) => item.id !== id);
-    // setEntries(result);
-  }
 
-  function editEntry(id) {
-    console.log(`edit entry with id ${id}`);
-    if (id) {
-      const index = entries.findIndex((entry) => entry.id === id);
-      const entry = entries[index];
-      setEntryId(id);
-      setDescription(entry.description);
-      setValue(entry.value);
-      setisExpense(entry.isExpense);
-      setIsOpen(true);
-    }
-  }
-  function resetEntry() {
-    setDescription("");
-    setValue("");
-    setisExpense(true);
-  }
-  function addEntry() {
-    const result = entries.concat({
-      id: entries.length + 1,
-      description,
-      value,
-      isExpense,
-    });
-    console.log("res", result);
-    console.log("entries", entries);
-    // setEntries(result);
-    resetEntry();
-  }
 
   return (
     <Container>
@@ -96,34 +52,11 @@ function App() {
       <DisplayBalances exp={expenseTotal} inc={incomeTotal}></DisplayBalances>
 
       <Header as="h3">Add new transaction</Header>
-      <NewEntryForm
-        addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setValue={setValue}
-        setDescription={setDescription}
-        setisExpense={setisExpense}
-      ></NewEntryForm>
-      <EntryLines
-        entries={entries}
-     
-        editEntry={editEntry}
-      ></EntryLines>
-      <ModalEdit
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        addEntry={addEntry}
-        description={description}
-        value={value}
-        isExpense={isExpense}
-        setValue={setValue}
-        setDescription={setDescription}
-        setisExpense={setisExpense}
-      ></ModalEdit>
+      <NewEntryForm></NewEntryForm>
+      <EntryLines entries={entries}></EntryLines>
+      <ModalEdit isOpen={isOpen} {...entry}></ModalEdit>
     </Container>
   );
 }
 
 export default App;
-
