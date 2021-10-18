@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Header } from "semantic-ui-react";
+import { Container, Header} from "semantic-ui-react";
 
 import "semantic-ui-css/semantic.min.css";
 import MainHeader from "./components/MainHeader";
@@ -7,24 +7,28 @@ import NewEntryForm from "./components/NewEntryForm";
 import DisplayBalances from "./components/DisplayBalances";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllEntries } from "./actions/entries.actions";
+import Filters from "./components/Filters";
 
 import "./App.css";
-import useEntryDatails from "./hooks/useEntryDetails";
-
 function App() {
   const [total, setTotal] = useState(0);
   const [incomeTotal, setIncomeTotal] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
-  const [entry, setEntry] = useState(); 
+  const [entry, setEntry] = useState();
   const entries = useSelector((state) => state.entries);
-  const {isOpen, id} = useSelector((state) => state.modals);
+
+  const { isOpen, id } = useSelector((state) => state.modals);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const index = entries.findIndex(entry => entry.id === id);
+    const index = entries.findIndex((entry) => entry.id === id);
     setEntry(entries[index]);
+  
     // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [isOpen, id]);
+  }, [id, entries]);
 
   useEffect(() => {
     let totalIncome = 0;
@@ -37,14 +41,17 @@ function App() {
         return (totalIncome += parseInt(entry.value));
       }
     });
+    console.log(entries);
     setTotal(totalIncome - totalExpenses);
     setExpenseTotal(totalExpenses);
     setIncomeTotal(totalIncome);
     // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, entries);
+  }, [entries]);
 
+  useEffect(() => {
+    dispatch(getAllEntries());
 
-
+  }, [dispatch]);
   return (
     <Container>
       <MainHeader total={total}></MainHeader>
@@ -53,6 +60,9 @@ function App() {
 
       <Header as="h3">Add new transaction</Header>
       <NewEntryForm></NewEntryForm>
+
+    <Filters entries={entries}></Filters>
+  
       <EntryLines entries={entries}></EntryLines>
       <ModalEdit isOpen={isOpen} {...entry}></ModalEdit>
     </Container>

@@ -14,6 +14,7 @@ function NewEntryForm() {
   isExpense,
   setisExpense,
   addEntry,
+  sortByValue,
  } = useEntryDatails();
   return (
     <Form unstackable>
@@ -27,7 +28,7 @@ function NewEntryForm() {
       ></EntryForm>
       <ButtonSaveOrCancel
         addEntry={addEntry}
-     
+        sortByValue={sortByValue}
       ></ButtonSaveOrCancel>
     </Form>
   );

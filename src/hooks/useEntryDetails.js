@@ -45,6 +45,8 @@ function useEntryDatails(desc = "", val = "", isExp = true) {
       resetValues();
   }
 
+
+
   function resetValues(){
     setDescription("");
     setValue("");
@@ -59,7 +61,8 @@ function useEntryDatails(desc = "", val = "", isExp = true) {
     isExpense,
     setisExpense,
     addEntry,
-    updateEntry
+    updateEntry,
+
   };
 }
 export default useEntryDatails;
