@@ -66,6 +66,7 @@ function Filters({ entries }) {
         value={data.find((option) => option.value === selectedValue)}
         options={data}
         onChange={handleChange}
+       
       />
     </>
   );

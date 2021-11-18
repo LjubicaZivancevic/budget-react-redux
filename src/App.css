@@ -6,6 +6,39 @@
   height: 40vmin;
   pointer-events: none;
 }
+.Nav {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  background-color: #177fce;
+}
+.Nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.Nav ul li {
+  display: inline-block;
+  float: left;
+}
+.Nav ul li a {
+  display: block;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.SearchBar {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid lightgray;
+}
+.SearchBar:focus {
+  border: 1.5px solid #177fce !important;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -22,10 +55,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {

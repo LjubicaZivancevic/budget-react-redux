@@ -1,71 +1,43 @@
-import { useEffect, useState } from "react";
-import { Container, Header} from "semantic-ui-react";
-
-import "semantic-ui-css/semantic.min.css";
-import MainHeader from "./components/MainHeader";
-import NewEntryForm from "./components/NewEntryForm";
-import DisplayBalances from "./components/DisplayBalances";
-import EntryLines from "./components/EntryLines";
-import ModalEdit from "./components/ModalEdit";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllEntries } from "./actions/entries.actions";
-import Filters from "./components/Filters";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Home from "./pages/Home";
+import Analytics from "./pages/Analytics";
+import { Menu, Grid } from "semantic-ui-react";
 import "./App.css";
 function App() {
-  const [total, setTotal] = useState(0);
-  const [incomeTotal, setIncomeTotal] = useState(0);
-  const [expenseTotal, setExpenseTotal] = useState(0);
-  const [entry, setEntry] = useState();
-  const entries = useSelector((state) => state.entries);
-
-  const { isOpen, id } = useSelector((state) => state.modals);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const index = entries.findIndex((entry) => entry.id === id);
-    setEntry(entries[index]);
-  
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [id, entries]);
-
-  useEffect(() => {
-    let totalIncome = 0;
-    let totalExpenses = 0;
-
-    entries.map((entry) => {
-      if (entry.isExpense) {
-        return (totalExpenses += parseInt(entry.value));
-      } else {
-        return (totalIncome += parseInt(entry.value));
-      }
-    });
-    console.log(entries);
-    setTotal(totalIncome - totalExpenses);
-    setExpenseTotal(totalExpenses);
-    setIncomeTotal(totalIncome);
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, [entries]);
-
-  useEffect(() => {
-    dispatch(getAllEntries());
-
-  }, [dispatch]);
+ 
   return (
-    <Container>
-      <MainHeader total={total}></MainHeader>
+    <Router>
+   
+      <div>
+        <nav className='Nav'>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/analytics">Analytics</Link>
+            </li>
+            
+          </ul>
+        </nav>
 
-      <DisplayBalances exp={expenseTotal} inc={incomeTotal}></DisplayBalances>
-
-      <Header as="h3">Add new transaction</Header>
-      <NewEntryForm></NewEntryForm>
-
-    <Filters entries={entries}></Filters>
-  
-      <EntryLines entries={entries}></EntryLines>
-      <ModalEdit isOpen={isOpen} {...entry}></ModalEdit>
-    </Container>
+        <Switch>
+          <Route path="/analytics">
+            <Analytics />
+          </Route>
+         
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+        </div>
+    </Router>
+    
   );
 }
 

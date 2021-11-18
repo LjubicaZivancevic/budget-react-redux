@@ -4,17 +4,20 @@
       "id": 1,
       "description": "Redux test",
       "value": 1000,
+      "date" : "2021-11-01T12:24:59.716Z",
       "isExpense": false
     },
     {
       "id": 2,
       "description": "Water bill",
       "value": 10,
+      "date" : "2021-11-01T12:24:59.716Z",
       "isExpense": true
     },
     {
       "id": 3,
       "description": "Power bill",
+      "date" : "2021-11-01T12:24:59.716Z",
       "value": 20,
       "isExpense": true
     },
@@ -22,17 +25,20 @@
       "id": 5,
       "description": "upWork job 2",
       "value": 120,
+      "date" : "2021-11-01T12:24:59.716Z",
       "isExpense": false
     },
     {
       "id": 4,
       "description": "upWork job",
+      "date" : "2021-11-01T12:24:59.716Z",
       "value": 100,
       "isExpense": false
     },
     {
       "id": 8,
       "description": "upWork job 6",
+      "date" : "2021-11-01T12:24:59.716Z",
       "value": 1200,
       "isExpense": false
     }

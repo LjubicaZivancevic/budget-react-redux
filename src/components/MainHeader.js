@@ -7,7 +7,7 @@ function MainHeader({total}){
     return (
         
         <Segment textAlign="center">
-              <Header as="h1">Budget</Header>
+          
       <Statistic size="small">
         <Statistic.Label style={{textAlign:"center"}}>
           Your Balance:

@@ -4,15 +4,20 @@ import { useDispatch } from "react-redux";
 import { removeEntryRedux } from "../actions/entries.actions";
 import { openEditModal } from "../actions/modals.actions";
 
-function EntryLine({ id, description, value, isExpense = false }) {
+function EntryLine({ id, description, value, date, isExpense = false }) {
   const dispatch = useDispatch();
-  dispatch({ type: 'TEST_MESSAGE'})
+  let date2 = new Date(date).toLocaleDateString('en-GB')
   return (
     <>
       <Segment color={isExpense ? "red" : "green"}>
-        <Grid columns={3} textAlign="right">
+        <Grid columns={4} textAlign="right" stackable>
           <Grid.Row>
-            <Grid.Column width={10} textAlign="left">
+          <Grid.Column width={3} textAlign="left">
+              {
+              date2
+              }
+            </Grid.Column>
+            <Grid.Column width={7} textAlign="left">
               {description}
             </Grid.Column>
             <Grid.Column width={3} textAlign="right">

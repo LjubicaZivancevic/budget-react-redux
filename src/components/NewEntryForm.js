@@ -10,6 +10,8 @@ function NewEntryForm() {
   description,
   setDescription,
   value,
+  date,
+  setDate,
   setValue,
   isExpense,
   setisExpense,
@@ -21,11 +23,14 @@ function NewEntryForm() {
       <EntryForm
         description={description}
         value={value}
+        date={date}
+        setDate={setDate}
         isExpense={isExpense}
         setValue={setValue}
         setDescription={setDescription}
         setisExpense={setisExpense}
       ></EntryForm>
+      <br></br>
       <ButtonSaveOrCancel
         addEntry={addEntry}
         sortByValue={sortByValue}

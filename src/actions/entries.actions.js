@@ -8,6 +8,7 @@ const types = {
   UPDATE_ENTRY: "UPDATE_ENTRY",
   SORT_ENTRIES_ASC: "SORT_ENTRIES_ASC",
   SORT_ENTRIES_DESC: "SORT_ENTRIES_DESC",
+  DO_SEARCH: "DO_SEARCH",
 };
 export default types;
 
@@ -29,15 +30,19 @@ export const getAllEntries = () => {
 export const populateEntries = (entries) => {
   return { type: types.POPULATE_ENTRIES, payload: entries };
 };
-export const sortByAsc = (entries) => {
-  return { type: types.SORT_ENTRIES_ASC, payload: entries };
+export const sortByAsc = () => {
+  return { type: types.SORT_ENTRIES_ASC};
 };
-export const sortByDesc = (entries) => {
-  return { type: types.SORT_ENTRIES_DESC, payload: entries };
+export const sortByDesc = () => {
+  return { type: types.SORT_ENTRIES_DESC };
 };
-export const getIncomes = (entries) => {
-  return { type: types.GET_INCOMES, payload: entries };
+export const getIncomes = () => {
+  return { type: types.GET_INCOMES };
 };
-export const getExpenses = (entries) => {
-  return { type: types.GET_EXPENSES, payload: entries };
+export const getExpenses = () => {
+  return { type: types.GET_EXPENSES};
 };
+
+export const doSearch = (searchTerm, entries ) => {
+  return {type: types.DO_SEARCH, payload: { searchTerm, entries}}
+}

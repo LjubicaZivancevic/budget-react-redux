@@ -6,16 +6,18 @@ function SortEntries() {
   const dispatch = useDispatch();
   function sortByAscending(entries) {
     dispatch(sortByAsc(entries));
-    console.log("Sort button has been clicked - sort entries hook : ", entries);
+    console.log("Sort button has been clicked - sort entries hook : ASC", entries);
 
   }
   function sortByDescending(entries) {
     dispatch(sortByDesc(entries));
-    console.log("Sort button has been clicked - sort entries hook : ", entries);
+    console.log("Sort button has been clicked - sort entries hook : DESC", entries);
 
   }
   function getOnlyIncomes(entries){
+
     dispatch(getIncomes(entries));
+
   }
   function getOnlyExpenses(entries){
     dispatch(getExpenses(entries));
